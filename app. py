@@ -1,0 +1,92 @@
+import streamlit as st
+
+# Page Configuration
+st.set_page_config(
+    page_title="Mechanical Unit Converter & Density Checker",
+    page_icon="⚙️",
+    layout="centered"
+)
+
+# Header
+st.title("⚙️ Mechanical Unit Converter and Material Density Checker")
+
+st.markdown("### Developed By")
+st.write("**Full Name:** Afnan Mustafa")
+st.write("**Roll Number:** 25-ME-64")
+
+st.markdown("---")
+
+# =========================
+# UNIT CONVERTER SECTION
+# =========================
+st.header("🔄 Mechanical Unit Converter")
+
+conversion_type = st.selectbox(
+    "Select Conversion Type",
+    ["Length", "Mass", "Temperature"]
+)
+
+# Length Conversion
+if conversion_type == "Length":
+    meters = st.number_input("Enter value in Meters", min_value=0.0)
+    centimeters = meters * 100
+    millimeters = meters * 1000
+    inches = meters * 39.3701
+
+    st.success(f"{meters} meters = {centimeters:.2f} cm")
+    st.success(f"{meters} meters = {millimeters:.2f} mm")
+    st.success(f"{meters} meters = {inches:.2f} inches")
+
+# Mass Conversion
+elif conversion_type == "Mass":
+    kilograms = st.number_input("Enter value in Kilograms", min_value=0.0)
+    grams = kilograms * 1000
+    pounds = kilograms * 2.20462
+
+    st.success(f"{kilograms} kg = {grams:.2f} grams")
+    st.success(f"{kilograms} kg = {pounds:.2f} pounds")
+
+# Temperature Conversion
+elif conversion_type == "Temperature":
+    celsius = st.number_input("Enter Temperature in Celsius")
+    fahrenheit = (celsius * 9/5) + 32
+    kelvin = celsius + 273.15
+
+    st.success(f"{celsius} °C = {fahrenheit:.2f} °F")
+    st.success(f"{celsius} °C = {kelvin:.2f} K")
+
+st.markdown("---")
+
+# =========================
+# MATERIAL DENSITY CHECKER
+# =========================
+st.header("🧱 Material Density Checker")
+
+materials = {
+    "Steel": 7850,
+    "Aluminum": 2700,
+    "Copper": 8960,
+    "Brass": 8500,
+    "Titanium": 4500
+}
+
+selected_material = st.selectbox(
+    "Select Material",
+    list(materials.keys())
+)
+
+density = materials[selected_material]
+
+st.info(f"Density of {selected_material} = {density} kg/m³")
+
+# Density Classification
+if density > 7000:
+    st.warning(f"{selected_material} is a High Density Material.")
+elif density > 3000:
+    st.success(f"{selected_material} is a Medium Density Material.")
+else:
+    st.success(f"{selected_material} is a Low Density Material.")
+
+st.markdown("---")
+
+st.caption("Streamlit Mechanical Engineering Mini Project")
